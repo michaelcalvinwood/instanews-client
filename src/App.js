@@ -1,24 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
+import { Alert, AlertIcon, Container, Heading } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
 
 function App() {
+
+  const message = useSelector(state => state.setAlert);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <Container >
+    
+    <Heading textAlign={'center'}>PYMNTS InstaNews</Heading>
+    <Alert status={message.status} marginBottom={'0'} visibility={message.status && message.msg ? 'visible' : 'hidden'}>
+          <AlertIcon />
+          {message.msg}
+      </Alert>
+
+   </Container>
   );
 }
 
