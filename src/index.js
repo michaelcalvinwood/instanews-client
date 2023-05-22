@@ -25,8 +25,8 @@ import '@fontsource/roboto/'
 /*
  * socket io
  */
-//import { io } from 'socket.io-client';
-//import * as socket from './socket';
+import { io } from 'socket.io-client';
+import * as socket from './utils/socket';
 
 export const theme = extendTheme(
   {
@@ -38,7 +38,7 @@ export const theme = extendTheme(
 )
 
 console.log('store', store);
-//socket.setupTheSocket(io, `https://node.pymnts.com:6400`, store);
+socket.setupTheSocket(io, `https://node.pymnts.com:6405`, store);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
