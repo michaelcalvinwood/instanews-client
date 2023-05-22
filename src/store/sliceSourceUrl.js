@@ -6,12 +6,12 @@ const sliceSourceUrl = createSlice({
     reducers: {
         setSourceUrl: (state, action) => {
             console.log(action);
-            const { url } = action.payload;
+            const  url  = action.payload;
             return url;
         }
     }
 });
 
-export const { changeCounterValue } = sliceSourceUrl.actions;
+export const { setSourceUrl } = sliceSourceUrl.actions;
 
 export default sliceSourceUrl.reducer;
