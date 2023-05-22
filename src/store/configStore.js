@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import sourceUrlReducer from './sliceSourceUrl';
 import setAlertReducer from './sliceAlert';
+import spinnerReducer from './sliceSpinner';
 
 const store = configureStore({ 
     reducer: {
        sourceUrl: sourceUrlReducer,
-       setAlert: setAlertReducer
+       setAlert: setAlertReducer,
+       spinner: spinnerReducer
     }
 });
 
