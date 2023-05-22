@@ -5,8 +5,8 @@ import App from './App';
 /*
  * Redux Provider
  */
-//import { Provider } from 'react-redux';
-//import store from './store/configStore';
+import { Provider } from 'react-redux';
+import store from './store/configStore';
 
 /*
  * Chakra Provider Setup: https://pro.chakra-ui.com/guides/get-started
@@ -21,8 +21,7 @@ import { extendTheme, theme as baseTheme, ColorModeScript } from '@chakra-ui/rea
  */
 
 import '@fontsource/roboto/'
-//import "@fontsource/almendra-display"; // Defaults to weight 400.
-//import "@fontsource/almendra";
+
 /*
  * socket io
  */
@@ -38,15 +37,16 @@ export const theme = extendTheme(
   proTheme
 )
 
+console.log('store', store);
 //socket.setupTheSocket(io, `https://node.pymnts.com:6400`, store);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <Provider store={store}>
+  <Provider store={store}>
     <ChakraProvider theme={theme}>
       <App />
     </ChakraProvider>
-  // </Provider>
+  </Provider>
 
 );
 
