@@ -2,16 +2,52 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+/*
+ * Redux Provider
+ */
+//import { Provider } from 'react-redux';
+//import store from './store/configStore';
+
+/*
+ * Chakra Provider Setup: https://pro.chakra-ui.com/guides/get-started
+ */
+
+import { ChakraProvider } from '@chakra-ui/react';
+import { theme as proTheme } from '@chakra-ui/pro-theme'
+import { extendTheme, theme as baseTheme, ColorModeScript } from '@chakra-ui/react'
+
+/*
+ * For incredible array of font choices see: https://www.npmjs.com/search?perPage=20&page=0&q=%40fontsource&ranking=popularity
+ */
+
+import '@fontsource/roboto/'
+//import "@fontsource/almendra-display"; // Defaults to weight 400.
+//import "@fontsource/almendra";
+/*
+ * socket io
+ */
+//import { io } from 'socket.io-client';
+//import * as socket from './socket';
+
+export const theme = extendTheme(
+  {
+    colors: { ...baseTheme.colors, brand: baseTheme.colors.messenger },
+    initialColorMode: 'light',
+    useSystemColorMode: false,
+  },
+  proTheme
+)
+
+//socket.setupTheSocket(io, `https://node.pymnts.com:6400`, store);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  // <Provider store={store}>
+    <ChakraProvider theme={theme}>
+      <App />
+    </ChakraProvider>
+  // </Provider>
+
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
