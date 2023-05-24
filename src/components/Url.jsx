@@ -1,12 +1,25 @@
-import { Container, Heading, Text, Box } from '@chakra-ui/react'
+import { Container, Heading, Text, Box, Image } from '@chakra-ui/react'
+import {MdOutlineDeleteForever} from 'react-icons/md';
+import { setUrls } from '../store/sliceInput';
 import React from 'react'
+import { useDispatch } from 'react-redux';
+import { removeUrl } from '../store/sliceInput';
 
-const Url = ({title, link, snippet}) => {
+const Url = ({title, link, snippet, domain, id}) => {
+    const dispatch = useDispatch();
+
   return (
-    <Box>
-        <Heading size='sm' textAlign='center' margin='.5rem'>{title}</Heading>
-        <Text>{snippet}</Text>
-        <Text fontSize=".75rem" fontStyle='italic' textAlign={'center'}>{link}</Text>
+    <Box display='block' marginTop="2rem">
+        <Box display='flex' alignItems={'center'} justifyContent={'space-between'}>
+       
+            <Heading size='xs' textAlign='center'>{title}</Heading>
+            <MdOutlineDeleteForever size="1.75rem" cursor={'pointer'} onClick={() => {
+                dispatch(removeUrl({id}))
+            }}/>
+            
+        </Box>
+        <Text textAlign={'left'}>{snippet} Source: <span style={{fontWeight:'bold'}}>{domain}</span></Text>
+        
     </Box>
   )
 }

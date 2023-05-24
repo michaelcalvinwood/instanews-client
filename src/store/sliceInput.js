@@ -16,6 +16,10 @@ const sliceInput = createSlice({
             state.urls = action.payload.urls;
             return state;
         },
+        removeUrl: (state, action) => {
+            state.urls = state.urls.filter(url => url.id !== action.payload.id);
+            return state;
+        },
         approveQuery: (state, action) => {
             state.queryApproved = true;
             return state;
@@ -23,6 +27,6 @@ const sliceInput = createSlice({
     }
 });
 
-export const { setTopic, setQuery, setUrls, approveQuery } = sliceInput.actions;
+export const { setTopic, setQuery, setUrls, approveQuery, removeUrl } = sliceInput.actions;
 
 export default sliceInput.reducer;

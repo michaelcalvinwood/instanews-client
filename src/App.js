@@ -4,6 +4,7 @@ import { Alert, AlertIcon, Box, Button, Container, Heading, Input, Spinner, Text
 import { useDispatch, useSelector } from 'react-redux';
 import { turnOffSpinner, turnOnSpinner } from './store/sliceSpinner';
 import { setTopic, setQuery, approveQuery, setUrls } from './store/sliceInput';
+import { setMsg } from './store/sliceAlert';
 import Url from './components/Url';
 import * as socket from './utils/socket';
 
@@ -15,6 +16,16 @@ function App() {
 
   console.log(input);
 
+  const createArticle = () => {
+    if (!input.topic) {
+      dispatch(setMsg({status: 'error', msg: 'Please enter a topic'}));
+      return;
+    }
+
+    socket.emit('urls', input.urls);
+
+  }
+
   return (
    <Container >
     <Heading textAlign={'center'}>PYMNTS InstaNews</Heading>
@@ -23,21 +34,24 @@ function App() {
         {message.msg}
     </Alert>
     <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
-      <Box display={'flex'} alignItems={'center'}>
-        <Text width='7rem'>Topic:</Text>
+      <Box display={'flex'} alignItems={'center'} marginTop=".5rem">
+        <Text width='7rem'>Story Angle:</Text>
         <Input type='text' placeholder='Topic to write about' width="50rem" padding=".25rem .5rem" 
           value={input.topic}
-          onChange={(e) => dispatch(setTopic({topic: e.target.value}))}
+          onChange={(e) => {
+            dispatch(setMsg({status: 'error', msg: ''}));
+            dispatch(setTopic({topic: e.target.value}))
+        }}
         />
       </Box>
       <Box display={'flex'} alignItems={'center'}>
-        <Text width='7rem'>Query:</Text>
-        <Input type='text' placeholder='Google query to get information' width="50rem" padding=".25rem .5rem" margin=".5rem auto"
+        <Text width='7rem'>Search:</Text>
+        <Input type='text' placeholder='What you would input into Google search' width="50rem" padding=".25rem .5rem" margin=".5rem auto"
           value={input.query}
           onChange={(e) => dispatch(setQuery({query: e.target.value}))}
         />
       </Box>
-      <Button margin=".5rem auto" 
+      <Button margin=".5rem auto" width="10rem"
         onClick={() => { 
           dispatch(setUrls({urls: []}))
           dispatch(turnOnSpinner({}));
@@ -46,20 +60,23 @@ function App() {
         }}>
           Submit Query
       </Button>
-      <Button margin=".5rem auto" 
-        onClick={() => socket.emit('input', input)}>
-          Approve Query
+      <Button margin=".5rem auto" width="10rem"
+        onClick={createArticle}>
+          Create Article
       </Button>
-      {
-        input.urls.map(url => {
+      <Box marginTop=".5rem">
+        {input.urls.map(url => {
           return <Url 
             key={url.link}
             title={url.title}
             link={url.link}
+            domain={url.domain}
             snippet={url.snippet}
+            id={url.id}
           />
-        })
-      }
+        })}
+        </Box>
+      
     </Box>
       
     {showSpinner && <Box height='100vh' width="100vw" position='fixed' top='0' left='0' display='flex' justifyContent={'center'} alignItems={'center'}>
