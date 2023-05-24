@@ -29,9 +29,24 @@ function App() {
           onChange={(e) => dispatch(setTopic({topic: e.target.value}))}
         />
       </Box>
+      <Box display={'flex'} alignItems={'center'}>
+        <Text width='7rem'>Query:</Text>
+        <Input type='text' placeholder='Google query to get information' width="50rem" padding=".25rem .5rem" margin=".5rem auto"
+          value={input.query}
+          onChange={(e) => dispatch(setQuery({query: e.target.value}))}
+        />
+      </Box>
       <Button margin=".5rem auto" 
-        onClick={() => socket.emit('input', input)}>Submit</Button>
+        onClick={() => socket.emit('input', input)}>
+          Submit Query
+      </Button>
+      <Button margin=".5rem auto" 
+        onClick={() => socket.emit('input', input)}>
+          Approve Query
+      </Button>
+      
     </Box>
+      
     {showSpinner && <Box height='100vh' width="100vw" position='fixed' top='0' left='0' display='flex' justifyContent={'center'} alignItems={'center'}>
         <Spinner size='xl' color='navy'/>
     </Box> }
