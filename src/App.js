@@ -3,7 +3,7 @@ import './App.css';
 import { Alert, AlertIcon, Box, Button, Container, Heading, Input, Spinner, Text } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { turnOffSpinner, turnOnSpinner } from './store/sliceSpinner';
-import { setTopic, setQuery, approveQuery, setUrls } from './store/sliceInput';
+import { setTopic, setQuery, approveQuery, setUrls, setSeed } from './store/sliceInput';
 import { setMsg } from './store/sliceAlert';
 import Url from './components/Url';
 import * as socket from './utils/socket';
@@ -45,12 +45,20 @@ function App() {
         />
       </Box>
       <Box display={'flex'} alignItems={'center'}>
+        <Text width='7rem'>Seed:</Text>
+        <Input type='text' placeholder='Optional seed URL' width="50rem" padding=".25rem .5rem" margin=".5rem auto"
+          value={input.seed}
+          onChange={(e) => dispatch(setSeed({seed: e.target.value}))}
+        />
+      </Box>
+      <Box display={'flex'} alignItems={'center'}>
         <Text width='7rem'>Search:</Text>
         <Input type='text' placeholder='What you would input into Google search' width="50rem" padding=".25rem .5rem" margin=".5rem auto"
           value={input.query}
           onChange={(e) => dispatch(setQuery({query: e.target.value}))}
         />
       </Box>
+   
       <Button margin=".5rem auto" width="10rem"
         onClick={() => { 
           dispatch(setUrls({urls: []}))

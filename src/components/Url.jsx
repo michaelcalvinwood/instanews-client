@@ -18,7 +18,8 @@ const Url = ({title, link, snippet, domain, id}) => {
             }}/>
             
         </Box>
-        <Text textAlign={'left'}>{snippet} Source: <span style={{fontWeight:'bold'}}>{domain}</span></Text>
+        <Text textAlign={'left'}>{snippet}</Text>
+        <Text textAlign={'left'} fontWeight='bold'> {link}</Text>
         
     </Box>
   )
