@@ -12,6 +12,17 @@ export const setupTheSocket = (socketio, url, store) => {
             }
         })
     })
+    socket.on('urls', (urls) => {
+        console.log('socket urls', urls);
+        store.dispatch({
+            type: 'input/setUrls',
+            payload: {urls}
+        })
+        store.dispatch({
+            type: 'spinner/turnOffSpinner',
+            payload: ''
+        })
+    })
     //console.log('dispatch');
 
     // store.dispatch({

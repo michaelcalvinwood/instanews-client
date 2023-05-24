@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const sliceInput = createSlice({
     name: 'input',
-    initialState: {topic: '', query: '', queryApproved: false},
+    initialState: {topic: '', query: '', queryApproved: false, urls: []},
     reducers: {
         setTopic: (state, action) => {
             state.topic = action.payload.topic;
@@ -12,6 +12,10 @@ const sliceInput = createSlice({
             state.query = action.payload.query;
             return state;
         },
+        setUrls: (state, action) => {
+            state.urls = action.payload.urls;
+            return state;
+        },
         approveQuery: (state, action) => {
             state.queryApproved = true;
             return state;
@@ -19,6 +23,6 @@ const sliceInput = createSlice({
     }
 });
 
-export const { setTopic, setQuery, approveQuery } = sliceInput.actions;
+export const { setTopic, setQuery, setUrls, approveQuery } = sliceInput.actions;
 
 export default sliceInput.reducer;

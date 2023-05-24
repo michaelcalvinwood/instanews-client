@@ -3,7 +3,8 @@ import './App.css';
 import { Alert, AlertIcon, Box, Button, Container, Heading, Input, Spinner, Text } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { turnOffSpinner, turnOnSpinner } from './store/sliceSpinner';
-import { setTopic, setQuery, approveQuery } from './store/sliceInput';
+import { setTopic, setQuery, approveQuery, setUrls } from './store/sliceInput';
+import Url from './components/Url';
 import * as socket from './utils/socket';
 
 function App() {
@@ -37,14 +38,28 @@ function App() {
         />
       </Box>
       <Button margin=".5rem auto" 
-        onClick={() => socket.emit('input', input)}>
+        onClick={() => { 
+          dispatch(setUrls({urls: []}))
+          dispatch(turnOnSpinner({}));
+          socket.emit('input', input)
+        
+        }}>
           Submit Query
       </Button>
       <Button margin=".5rem auto" 
         onClick={() => socket.emit('input', input)}>
           Approve Query
       </Button>
-      
+      {
+        input.urls.map(url => {
+          return <Url 
+            key={url.link}
+            title={url.title}
+            link={url.link}
+            snippet={url.snippet}
+          />
+        })
+      }
     </Box>
       
     {showSpinner && <Box height='100vh' width="100vw" position='fixed' top='0' left='0' display='flex' justifyContent={'center'} alignItems={'center'}>
