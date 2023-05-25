@@ -7,14 +7,16 @@ import { setTopic, setQuery, approveQuery, setUrls, setSeed } from './store/slic
 import { setMsg } from './store/sliceAlert';
 import Url from './components/Url';
 import * as socket from './utils/socket';
+import Login from './components/Login';
 
 function App() {
   const dispatch = useDispatch();
   const message = useSelector(state => state.setAlert);
   const showSpinner = useSelector(state => state.spinner);
   const input = useSelector(state => state.input);
-
-  console.log(input);
+  const login = useSelector(state => state.login);
+  
+  console.log(login, input);
 
   const createArticle = () => {
     if (!input.topic) {
@@ -25,6 +27,8 @@ function App() {
     socket.emit('urls', {urls: input.urls, topic: input.topic});
 
   }
+
+  if (!login.password || !login.username) return <Login />
 
   return (
    <Container >
