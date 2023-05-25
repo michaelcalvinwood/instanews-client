@@ -28,7 +28,7 @@ function App() {
 
   }
 
-  if (!login.password || !login.username) return <Login />
+  if (!login.isLoggedIn) return <Login />
 
   return (
    <Container >
