@@ -2,7 +2,8 @@ import React from 'react'
 import { Alert, AlertIcon, Box, Button, Container, Heading, Input, Text } from '@chakra-ui/react';
 import { setMsg } from '../store/sliceAlert';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPassword, setUsername } from '../store/sliceLogin';
+import { setPassword, setUsername, setIsLoggedIn } from '../store/sliceLogin';
+import * as wp from '../utils/wordpress';
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -10,13 +11,22 @@ const Login = () => {
     const showSpinner = useSelector(state => state.spinner);
     const login = useSelector(state => state.login);
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
+        const token = await wp.getJWT('delta.pymnts.com', login.username, login.password);
+        console.log('token', token);
 
+        if (token === false) return dispatch(setMsg({status: 'error', msg: 'invalid credentials'}))
+            
+        dispatch(setIsLoggedIn(true));
     }
 
   return (
     <Container>
         <Heading textAlign='center'>PYMNTS InstaNews</Heading>
+        <Alert status={message.status} marginBottom={'0'} visibility={message.status && message.msg ? 'visible' : 'hidden'}>
+        <AlertIcon />
+        {message.msg}
+        </Alert>
         <Box display="flex" alignItems={'center'} margin=".5rem auto .5rem auto" width="fit-content" flexDirection={'column'}>
             <Text width="5rem;">Username</Text>
             <Input type="text" width="20rem" value={login.username} onChange={(e) => {
