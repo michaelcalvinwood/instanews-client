@@ -22,7 +22,7 @@ function App() {
       return;
     }
 
-    socket.emit('urls', input.urls);
+    socket.emit('urls', {urls: input.urls, topic: input.topic});
 
   }
 
