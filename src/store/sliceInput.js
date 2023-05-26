@@ -20,8 +20,10 @@ const sliceInput = createSlice({
         setUrls: (state, action) => {
             state.urls = action.payload.urls;
             try {
-                const url = new URL(state.seed);
-                state.urls.unshift({title: 'Seed', link: state.seed, snippet: '', date: 'now', id: uuidv4()})
+                if (state.seed) {
+                    const url = new URL(state.seed);
+                    state.urls.unshift({title: 'Seed', domain:url.hostname, link: state.seed, snippet: '', date: 'now', id: uuidv4()})
+                }
             } catch (err) {
 
             }

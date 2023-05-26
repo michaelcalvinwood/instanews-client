@@ -24,14 +24,19 @@ function App() {
       return;
     }
 
-    socket.emit('urls', {urls: input.urls, topic: input.topic});
+    socket.emit('urls', {urls: input.urls, topic: input.topic, login});
+
+    dispatch(setTopic({topic: ''}));
+    dispatch(setQuery({query: ""}));
+    dispatch(setSeed({seed: ''}));
+    dispatch(setUrls({urls: []}))
 
   }
 
   if (!login.isLoggedIn) return <Login />
-
+  
   return (
-   <Container >
+   <Container marginBottom="2rem">
     <Heading textAlign={'center'}>PYMNTS InstaNews</Heading>
     <Alert status={message.status} marginBottom={'0'} visibility={message.status && message.msg ? 'visible' : 'hidden'}>
         <AlertIcon />
@@ -85,6 +90,7 @@ function App() {
             domain={url.domain}
             snippet={url.snippet}
             id={url.id}
+            date={url.date}
           />
         })}
         </Box>

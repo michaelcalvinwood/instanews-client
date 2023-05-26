@@ -5,21 +5,25 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import { removeUrl } from '../store/sliceInput';
 
-const Url = ({title, link, snippet, domain, id}) => {
+const Url = ({title, link, snippet, domain, id, date}) => {
     const dispatch = useDispatch();
 
   return (
     <Box display='block' marginTop="2rem">
-        <Box display='flex' alignItems={'center'} justifyContent={'space-between'}>
+        <Box display='flex'  justifyContent={'space-between'} alignItems={'center'}>
        
-            <Heading size='xs' textAlign='center'>{title}</Heading>
-            <MdOutlineDeleteForever size="1.75rem" cursor={'pointer'} onClick={() => {
-                dispatch(removeUrl({id}))
-            }}/>
+            <Text fontSize='1.25rem' textAlign='left' width="70%" fontWeight={'bold'}>{title}</Text>
+            
+              <Text textAlign={'left'} width="8rem">{date}&nbsp;</Text>
+              <Text textAlign={'left'} width="12rem">{domain}</Text>
+              <MdOutlineDeleteForever size="1.75rem" cursor={'pointer'} onClick={() => {
+                  dispatch(removeUrl({id}))
+              }}/>
+            
             
         </Box>
-        <Text textAlign={'left'}>{snippet}</Text>
-        <Text textAlign={'left'} fontWeight='bold'> {link}</Text>
+       
+       
         
     </Box>
   )
