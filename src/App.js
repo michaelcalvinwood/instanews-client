@@ -16,8 +16,6 @@ function App() {
   const input = useSelector(state => state.input);
   const login = useSelector(state => state.login);
   
-  console.log(login, input);
-
   const createArticle = () => {
     if (!input.topic) {
       dispatch(setMsg({status: 'error', msg: 'Please enter a topic'}));
@@ -30,7 +28,6 @@ function App() {
     dispatch(setQuery({query: ""}));
     dispatch(setSeed({seed: ''}));
     dispatch(setUrls({urls: []}))
-
   }
 
   if (!login.isLoggedIn) return <Login />
@@ -91,6 +88,7 @@ function App() {
             snippet={url.snippet}
             id={url.id}
             date={url.date}
+            chosenUrls={input.chosenUrls}
           />
         })}
         </Box>

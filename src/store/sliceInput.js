@@ -3,8 +3,19 @@ import { v4 as uuidv4 } from 'uuid';
 
 const sliceInput = createSlice({
     name: 'input',
-    initialState: {topic: '', query: '', queryApproved: false, urls: [], seed: ''},
+    initialState: {topic: '', query: '', queryApproved: false, urls: [], seed: '', chosenUrls: []},
     reducers: {
+        addChosenUrl: (state, action) => {
+            let id = action.payload.id;
+            let url = state.urls.find(url => url.id === id);
+            if (url) state.chosenUrls.push(url);
+            return state;
+        },
+        removeChosenUrl: (state, action) => {
+            let id = action.payload.id;
+            state.chosenUrls = state.chosenUrls.filter(url => url.id !== id);
+            return state;
+        },
         setTopic: (state, action) => {
             state.topic = action.payload.topic;
             return state;
@@ -40,6 +51,6 @@ const sliceInput = createSlice({
     }
 });
 
-export const { setTopic, setQuery, setUrls, approveQuery, removeUrl, setSeed } = sliceInput.actions;
+export const { setTopic, setQuery, setUrls, approveQuery, removeUrl, setSeed, addChosenUrl, removeChosenUrl } = sliceInput.actions;
 
 export default sliceInput.reducer;
