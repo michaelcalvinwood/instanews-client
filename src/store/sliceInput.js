@@ -3,8 +3,12 @@ import { v4 as uuidv4 } from 'uuid';
 
 const sliceInput = createSlice({
     name: 'input',
-    initialState: {topic: '', query: '', queryApproved: false, urls: [], seed: '', chosenUrls: []},
+    initialState: {topic: '', query: '', queryApproved: false, urls: [], seed: '', chosenUrls: [], articleId: ''},
     reducers: {
+        setArticleId: (state, action) => {
+            state.articleId = action.payload.id;
+            return state;
+        },
         addChosenUrl: (state, action) => {
             let id = action.payload.id;
             let url = state.urls.find(url => url.id === id);
@@ -51,6 +55,6 @@ const sliceInput = createSlice({
     }
 });
 
-export const { setTopic, setQuery, setUrls, approveQuery, removeUrl, setSeed, addChosenUrl, removeChosenUrl } = sliceInput.actions;
+export const { setTopic, setQuery, setUrls, approveQuery, removeUrl, setSeed, addChosenUrl, removeChosenUrl, setArticleId } = sliceInput.actions;
 
 export default sliceInput.reducer;

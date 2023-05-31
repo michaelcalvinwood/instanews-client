@@ -5,7 +5,6 @@ const sliceAlert = createSlice({
     initialState: {status: 'error', msg: ''},
     reducers: {
         setMsg: (state, action) => {
-            console.log(action);
             const { status, msg } = action.payload;
             return {status, msg}
         }

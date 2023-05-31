@@ -3,11 +3,12 @@ import './App.css';
 import { Alert, AlertIcon, Box, Button, Container, Heading, Input, Spinner, Text } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { turnOffSpinner, turnOnSpinner } from './store/sliceSpinner';
-import { setTopic, setQuery, approveQuery, setUrls, setSeed } from './store/sliceInput';
+import { setTopic, setQuery, approveQuery, setUrls, setSeed, setArticleId } from './store/sliceInput';
 import { setMsg } from './store/sliceAlert';
 import Url from './components/Url';
 import * as socket from './utils/socket';
 import Login from './components/Login';
+import { useEffect } from 'react';
 
 function App() {
   const dispatch = useDispatch();
@@ -35,11 +36,30 @@ function App() {
     dispatch(setUrls({urls: []}))
   }
 
+  const assignArticleId = () => {
+    let location = window.location.href;
+    let locationUrl = new URL(location);
+
+    if (locationUrl.search.startsWith('?id=')) {
+      const articleId = locationUrl.search.substring(4);
+      console.log('articleId', articleId);
+      if (input.articleId !== articleId) dispatch(setArticleId({id: articleId}));
+    }
+    console.log('locationUrl', locationUrl);
+  }
+
+  useEffect(() => {
+    assignArticleId();
+  })
+
   if (!login.isLoggedIn) return <Login />
+
+  
   
   return (
    <Container marginBottom="2rem">
     <Heading textAlign={'center'}>PYMNTS InstaNews</Heading>
+    {input.articleId && <Heading textAlign={'center'} size={'sm'} color={'navy'}>{input.articleId}</Heading>}
     <Alert status={message.status} marginBottom={'0'} visibility={message.status && message.msg ? 'visible' : 'hidden'}>
         <AlertIcon />
         {message.msg}

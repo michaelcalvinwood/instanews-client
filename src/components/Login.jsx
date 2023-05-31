@@ -10,6 +10,7 @@ const Login = () => {
     const message = useSelector(state => state.setAlert);
     const showSpinner = useSelector(state => state.spinner);
     const login = useSelector(state => state.login);
+    const input = useSelector(state => state.input);
 
     const handleSubmit = async () => {
         const token = await wp.getJWT('delta.pymnts.com', login.username, login.password);
@@ -23,6 +24,7 @@ const Login = () => {
   return (
     <Container>
         <Heading textAlign='center'>PYMNTS InstaNews</Heading>
+        {input.articleId && <Heading textAlign={'center'} size={'sm'} color={'navy'}>{input.articleId}</Heading>}
         <Alert status={message.status} marginBottom={'0'} visibility={message.status && message.msg ? 'visible' : 'hidden'}>
         <AlertIcon />
         {message.msg}

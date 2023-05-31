@@ -38,7 +38,7 @@ export const theme = extendTheme(
 )
 
 console.log('store', store);
-socket.setupTheSocket(io, `https://node.pymnts.com:6405`, store);
+socket.setupTheSocket(io, `https://instanews.pymnts.com:6405`, store);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

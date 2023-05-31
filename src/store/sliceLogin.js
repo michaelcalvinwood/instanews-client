@@ -5,12 +5,12 @@ const sliceLogin = createSlice({
     initialState: {username: '', password: '', isLoggedIn: false},
     reducers: {
         setUsername: (state, action) => {
-            console.log(action);
+            
             state.username = action.payload.username;
             return state;
         },
         setPassword: (state, action) => {
-            console.log(action);
+           
             state.password = action.payload.password;
             return state;
         },
