@@ -23,12 +23,12 @@ function App() {
       return;
     }
 
-    if (!input.chosenUrls.length) {
+    if (!input.chosenUrls.length && !input.articleId) {
       dispatch(setMsg({status: 'error', msg: 'Please include at least one URL.'}));
       return;
     }
 
-    socket.emit('urls', {urls: input.chosenUrls, topic: input.topic, login});
+    socket.emit('urls', {urls: input.chosenUrls, topic: input.topic, login, articleId: input.articleId});
 
     dispatch(setTopic({topic: ''}));
     dispatch(setQuery({query: ""}));
