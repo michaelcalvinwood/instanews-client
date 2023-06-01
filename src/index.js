@@ -38,7 +38,8 @@ export const theme = extendTheme(
 )
 
 console.log('store', store);
-socket.setupTheSocket(io, `https://instanews.pymnts.com:6405`, store);
+const locationUrl = new URL(window.location.href);
+socket.setupTheSocket(io, locationUrl.hostname === 'instanews-dev.pymnts.com' ? `https://instanews.pymnts.com:6406` : `https://instanews.pymnts.com:6405`, store);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
